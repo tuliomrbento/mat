@@ -1,0 +1,52 @@
+<!-- <?php
+	$server_name = $_SERVER['SERVER_NAME'];
+	 
+	include('./api/database/db.class.php');
+	
+	$db = new Database();
+	
+	$client = $db->getRow('SELECT * FROM campanha WHERE url LIKE :campanha_url',[':campanha_url'=>$server_name]);
+	
+	if(!$client)
+	{
+		echo 'Cliente P.A.T Campanha Não Cadastrada';
+		die();
+	}
+	
+?> -->
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>{{title}}</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" id="documentFavicon" href="{{icon}}">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+  <style type="text/css">
+    :root{
+      --primary: <?php echo $client['cor1'] ?>;
+      --secondary: <?php echo $client['cor2'] ?>;
+      --secondary-light: <?php echo $client['cor3'] ?>;
+      --background-dark: <?php echo $client['cor4'] ?>;
+    }
+  </style>
+</head>
+<body>
+  <app-root></app-root>
+  <script>
+    window.global_ = {
+      cliente: 'Pat',
+      logo: 'assets/images/mondelez.svg'
+      /* cliente: '<?php echo $client['nome'] ?>', 
+      logo: 'https://cwbecommerce.com.br/pat/upload/logo/<?php echo $client['logo'] ?>'*/
+    }
+    </script>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+</html>

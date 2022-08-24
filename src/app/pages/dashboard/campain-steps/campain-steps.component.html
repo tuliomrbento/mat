@@ -1,0 +1,72 @@
+<header>
+  <div class='row header'>
+    <div class='col-md-3 col-sm-4'>
+      <small>Nome da Etapa</small>
+      <h4>{{step?.title}}</h4>
+    </div>
+    <div class='col-md-2 col-sm-3'>
+      <small>Data de Início</small>
+      <h4>{{maskDate(step?.dateStart)}}</h4>
+    </div>
+    <div class='col-md-2 col-sm-3'>
+      <small>Data de Térmico</small>
+      <h4>{{maskDate(step?.dateEnd)}}</h4>
+    </div>
+    <div class='col-md-5 col-sm-2'>
+      <div class='float-right'>
+        <div class='button' [hidden]='true'>
+          <mat-icon class='material-icons-outlined'>edit</mat-icon>
+        </div>
+        <div class='button' (click)='toBack()'>
+          <mat-icon class='material-icons-outlined'>arrow_back</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class='content'>
+  <div class='main'>
+    <div *ngIf="step?.metrics.length; else empty">
+      <div class="table-responsive-sm">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nome do KPI</th>
+              <th scope="col">Perfil Hierárquico</th>
+              <th scope="col">Região</th>
+              <th scope="col">Subregião</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let metric of step.metrics">
+              <td><a routerLink="/dashboard/campain/steps/{{id}}/management/{{metric.id}}">{{metric.name}}</a></td>
+              <td><kbd>{{metric.profile}}</kbd></td>
+              <td><kbd>{{metric.region}}</kbd></td>
+              <td><kbd>{{metric.sub_region}}</kbd></td>
+              <td>
+                <div class='d-flex'>
+                  <mat-icon class='material-icons-outlined' (click)='copyMetric(metric)' data-toggle="tooltip" title="Duplicar">content_copy</mat-icon>
+                  <mat-icon class='material-icons-outlined' (click)='deleteMetric(metric.id)' data-toggle="tooltip" title="Deletar">delete</mat-icon>
+                  <mat-icon class='material-icons-outlined' (click)='editMetric(metric)' data-toggle="tooltip" title="Editar">edit</mat-icon>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class='button' (click)='openModal()'>
+        <mat-icon>add</mat-icon>
+        Adicionar KPI
+      </div>
+    </div>
+    <ng-template #empty>
+      <div class='empty d-flex flex-column align-items-center justify-content-center'>
+        <img src='assets/images/calculator.svg' />
+        <h5><b>Nenhuma KPI adicionada</b></h5>
+        <p>Adicione KPIs para formular essa etapa.</p>
+        <a class='btn btn-outline-secondary' (click)='openModal()'>Adicionar KPI</a>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<div *ngIf="hasParticipantsBase; else empty" class='content'>
+  <header class='row'>
+    <div class='col-lg-3 col-md-12 d-flex'>
+      <h1 class='mr-3'>{{ handlePercentMask(handleCounters(2),participants.length,1)}}%</h1>
+      <div class='info'>
+        <span>{{handleCounters(2)}} de {{participants.length}}</span><br/>
+        <span class='text-nowrap'>participantes já aderiram</span>
+      </div>
+    </div>
+    <div class='col-md-6 col-lg-5 pl-lg-5 d-flex list'>
+      <div *ngFor='let status of headerStatus' class='mr-4'>
+        <span>{{status.title}}</span><br/>
+        <div class='d-flex'>
+          <mat-icon class="material-icons-outlined" [ngStyle]="{'color': status.color}">trip_origin</mat-icon>
+          <h5>{{handleCounters(status.id)}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class='buttons col-md-6 col-lg-4 d-flex align-items-center justify-content-end'>
+      <a 
+        type='button' 
+        class='btn btn-outline-secondary mr-3'
+        (click)="openModal()"
+      >
+        Exportar
+        <div class='icon' [ngStyle]="{'-webkit-mask': 'url(assets/icons/sheet.svg) no-repeat center'}"></div>
+      </a>
+      <a type='button' class='btn btn-primary filter' (click)="openFilter()" [hidden]="true">
+        Filtrar
+        <div class='icon' [ngStyle]="{'-webkit-mask': 'url(assets/icons/filter.svg) no-repeat center'}"></div>
+      </a>
+    </div>
+  </header>
+  <section *ngIf="participants.length; else emptyFilter">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr> 
+            <th 
+              *ngFor='let head of headParticipants;let i = index' 
+              [ngClass]="{
+                'fixer': i === 0, 
+                'fixer-name': i === 1,
+                'fixer-email': i === 2
+              }" 
+            >{{head.nome}}</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+          <tr *ngFor="let persona of participants">
+            <td class='fixer'><mat-icon class="material-icons-outlined" [ngStyle]="{'color': handleStatusItem(persona.id_status,'color')}">trip_origin</mat-icon></td>
+            <ng-container *ngFor='let head of headParticipants; let i = index;'>
+              <td *ngIf="i > 0" 
+                [ngClass]="{
+                  'fixer fixer-name': i === 1,
+                  'fixer fixer-email': i === 2
+                }" 
+              >{{ persona[head.id] }}</td>
+            </ng-container>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <footer>
+      <div class='float-right d-flex'>
+        <span class='mr-3'>Exibindo {{ qtds.qtd }} participantes</span>
+        <div class='pagination'>
+          <mat-icon [hidden]="!qtds.pg" >chevron_left</mat-icon>
+          <span class='active'>{{ qtds.pg }}</span>
+          <span>de</span>
+          <span class='px-2'>{{ qtds.pgs }}</span>
+          <mat-icon [hidden]="!qtds.pg" >chevron_right</mat-icon>
+        </div>
+      </div>
+    </footer>
+  </section>
+  
+  <ng-template #emptyFilter>
+    <app-empty-filter></app-empty-filter>
+  </ng-template>
+</div>
+
+<ng-template #empty>
+  <app-empty-table></app-empty-table>
+</ng-template>

@@ -1,0 +1,59 @@
+mat-toolbar{
+  height: 56px;
+  padding-left: 56px!important;
+  box-shadow: rgb(51 51 68 / 7%) 0px 1px 0px;
+  background: white;
+  color: var(--gray-dark);
+  font-size: 16px;
+
+  & .profile {
+    background-color: var(--gray-dark);
+  }
+
+  & .icons {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #ddd;
+  }
+
+  & .titles .icon {
+    cursor: default;
+    align-self: flex-end;
+    height: 28px;
+  }
+}
+
+main {color: var(--gray);}
+
+section {
+  margin: .5rem .5rem .5rem 4rem;
+  border: 1px solid #eee;
+  border-radius: .5rem;
+  background-color: white;
+  position: relative;
+}
+
+.dropdown-menu li{
+  padding: 0 1rem;
+  transition: .5s;
+  cursor: pointer;
+  &:hover {
+    transition: .5s;
+    background-color: #eee;
+  }
+  & a {
+    text-decoration: none;
+    color: var(--gray);
+  }
+}
+
+@media only screen and (max-width: 994px) {
+  section {margin: .5rem}
+  mat-toolbar {
+    padding-left: .5rem!important;
+    & .icons {display: none;}
+    & .menu {cursor: pointer;}
+  }
+}

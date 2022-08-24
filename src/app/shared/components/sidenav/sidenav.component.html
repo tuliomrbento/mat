@@ -1,0 +1,43 @@
+<nav class='navigation' [ngClass]="{'navigation-active': toggleNav}" (mouseleave)="toggleNav = false; toggleSub = false">
+  <div class='logo d-flex justify-content-center align-items-center'>
+    <img src='{{icon}}'/>
+  </div>
+  <div *ngFor='let item of itens; let key = index'>
+    <div #navButtons (mouseenter)="toggleNav = true">
+      <div class='grid' [ngClass]="{'grid-active': toggleNav}">
+        <div 
+          class='button d-flex justify-content-center align-items-center' 
+          [ngClass]="{'button-active': location.path().includes(item.key)}"
+        >
+          <div 
+            class='icon' 
+            [ngStyle]="{'-webkit-mask': 'url(' + item.icon + ') no-repeat center'}"
+            [ngClass]="{'icon-active': location.path().includes(item.key)}"
+          ></div>
+        </div>
+        <div class='content align-items-center justify-content-between' [ngClass]="{'content-active': toggleNav}">
+          <div *ngIf='item.sub.length; else home'>{{item.title}}</div>
+          <ng-template #home>
+            <a routerLink="{{item.path}}">{{item.title}}</a>
+          </ng-template>
+          <div 
+            class='icon chevron' 
+            [ngStyle]="{'-webkit-mask': 'url(assets/icons/chevronright.svg) no-repeat center'}"
+            [hidden]="!item.sub.length"
+            (mouseenter)="toggleSub = true; subItem = key"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='sub' [ngClass]="{'sub-active': toggleSub}" (mouseleave)='toggleSub = false'>
+    <div class='logo d-flex align-items-center'>
+      {{ itens[subItem].title }}
+    </div>
+    <div *ngFor='let sub of itens[subItem].sub'>
+      <div class='sub-item'>
+        <a routerLink="{{sub.path}}">{{sub.title}}</a>
+      </div>
+    </div>
+  </div>
+</nav>   

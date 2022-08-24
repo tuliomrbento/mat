@@ -1,0 +1,98 @@
+<section>
+  <header>
+    <h5>Etapas de Campanha</h5>
+  </header>
+  <div class='content'>
+    <div class="card button" (click)='openModal()'>
+      <img src='assets/icons/RoundedPlus.svg' />
+      <div>
+        Adicionar Etapa
+      </div>
+    </div>
+    <div 
+      *ngFor="let step of steps.reverse()" 
+      class="card step" 
+      [ngClass]="{
+        'step-1': (now > step.dateStart) && (now > step.dateEnd), 
+        'step-2': (now >= step.dateStart) && (now <= step.dateEnd), 
+        'step-3': now < step.dateStart
+        }"
+      >
+      <div class='header'>
+        <div class="float-right">
+          <mat-icon class='material-icons-outlined'>
+            {{ 
+              (now > step.dateStart) && (now > step.dateEnd) ? 'check_circle' : 
+              (now >= step.dateStart) && (now <= step.dateEnd) ? 'schedule' : 'calendar_today' 
+            }}
+          </mat-icon>
+        </div>
+        <div class='title'>
+          <h3>{{step.title}}</h3>
+          <small>{{maskDateHyphen(step.dateStart)}} à {{maskDateHyphen(step.dateEnd)}}</small>
+        </div>
+      </div>
+      <div class="box card">
+        <a class='arrow' routerLink="/dashboard/campain/steps/{{step.id}}"><mat-icon>east</mat-icon></a>
+        <div class='info'>
+          <!-- <b>Chave de Entrada Sell Out</b>
+          <p>Para Clientes BB e NNE</p>
+          <b>Chave de Entrada Sell Out</b>
+          <p>Para Distribuidores BB-SUL, BB-SP, BB</p> -->
+        </div>
+        <div class='group-buttons d-flex align-items-center justify-content-between'>
+          <a *ngIf="now < step.dateStart" (click)='handleDelete(step.id)'>
+            <mat-icon class='material-icons-outlined'>delete</mat-icon>
+            Excluir
+          </a>
+          <a class="btn-right"><mat-icon class=''>content_copy</mat-icon>Duplicar</a>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="card step step-2">
+      <div class='header'>
+        <div class="float-right"><mat-icon class='material-icons-outlined'>schedule</mat-icon></div>
+        <div class='title'>
+          <h3>Primeiro Trimestre</h3>
+          <small>01/04/2019 à 31/06/2019</small>
+        </div>
+      </div>
+      <div class="box card">
+        <div class='arrow'><mat-icon>east</mat-icon></div>
+        <div class='info'>
+          <b>Chave de Entrada Sell Out</b>
+          <p>Para Clientes BB e NNE</p>
+          <b>Chave de Entrada Sell Out</b>
+          <p>Para Distribuidores BB-SUL, BB-SP, BB</p>
+        </div>
+        <div class='group-buttons d-flex align-items-center justify-content-between'>
+          <a [hidden]="true"><mat-icon class='material-icons-outlined'>delete</mat-icon>Excluir</a>
+          <a class="btn-right"><mat-icon class=''>content_copy</mat-icon>Duplicar</a>
+        </div>
+      </div>
+    </div>
+    <div class="card step step-3">
+      <div class='header'>
+        <div class="float-right"><mat-icon class='material-icons-outlined'>calendar_today</mat-icon></div>
+        <div class='title'>
+          <h3>Primeiro Trimestre</h3>
+          <small>01/04/2019 à 31/06/2019</small>
+        </div>
+      </div>
+      <div class="box card">
+        <div class='arrow'><mat-icon>east</mat-icon></div>
+        <div class='info'>
+          <b>Chave de Entrada Sell Out</b>
+          <p>Para Clientes BB e NNE</p>
+          <b>Chave de Entrada Sell Out</b>
+          <p>Para Distribuidores BB-SUL, BB-SP, BB</p>
+        </div>
+        <div class='group-buttons d-flex align-items-center justify-content-between'>
+          <a [hidden]="false"><mat-icon class='material-icons-outlined'>delete</mat-icon>Excluir</a>
+          <a class="btn-right"><mat-icon class=''>content_copy</mat-icon>Duplicar</a>
+        </div>
+      </div>
+    </div> -->
+    
+  </div>
+</section>

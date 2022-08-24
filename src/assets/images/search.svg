@@ -1,0 +1,10 @@
+<svg width="449" height="233" viewBox="0 0 449 233" fill="none" xmlns="http://www.w3.org/2000/svg">
+<ellipse cx="222.5" cy="100" rx="80.5" ry="80" fill="#F4E6FE"/>
+<path d="M243 64H185C183.895 64 183 64.8954 183 66V128" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="20 20"/>
+<path d="M196 131.5V141C196 142.105 196.895 143 198 143H249C250.105 143 251 142.105 251 141V79C251 77.8954 250.105 77 249 77H246" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 10"/>
+<rect x="232.339" y="128.973" width="16.4528" height="61.4238" rx="5" transform="rotate(-45 232.339 128.973)" fill="#FF7F5B"/>
+<path d="M231.5 118L237.461 123.961" stroke="#772EAD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="194.335" cy="79.335" r="50.3911" transform="rotate(-45 194.335 79.335)" stroke="#BF99DB" stroke-width="10"/>
+<path d="M223.057 108.056C238.92 92.1936 238.92 66.475 223.057 50.6123C207.194 34.7496 181.476 34.7496 165.613 50.6123" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M231.335 116.334C218.733 128.936 201.303 133.766 185 130.826C174.866 128.998 165.168 124.167 157.335 116.334C143.434 102.434 138.989 82.6575 144.001 64.9996" stroke="#8212AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

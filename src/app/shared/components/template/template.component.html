@@ -1,0 +1,28 @@
+<mat-toolbar class="header row mx-0 p-0">
+  <mat-icon class='d-lg-none menu' (click)='openMenu()'>menu</mat-icon>
+  <div class='col-11 d-flex align-items-center titles'>
+    {{campain?.nome ? campain?.nome : 'Campanha'}}
+    <div class='icon chevron mx-1' [ngStyle]="{'-webkit-mask': 'url(assets/icons/chevronright.svg) no-repeat center'}"></div>
+    {{ pathname() }}
+  </div>
+  <div class='col-1 icons'>
+    <div class="dropdown" dropdown>
+      <a dropdownToggle role="button">
+        <div class='d-flex justify-content-center'>
+          <div class='icon profile' [ngStyle]="{'-webkit-mask': 'url(assets/icons/profile.svg) no-repeat center'}"></div>
+          <div class='icon chevron' [ngStyle]="{'-webkit-mask': 'url(assets/icons/chevronbottom.svg) no-repeat center'}"></div>
+        </div>
+      </a>
+      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+        <li (click)='logout()'><a type='button' href="#">Sair</a></li>
+      </ul>
+    </div>
+  </div>
+</mat-toolbar>
+<main>
+  <app-sidenav></app-sidenav>
+  <section>
+    <router-outlet></router-outlet>
+  </section>
+</main>
+

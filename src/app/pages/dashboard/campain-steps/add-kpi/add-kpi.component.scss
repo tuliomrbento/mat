@@ -1,0 +1,24 @@
+.modal-footer {
+  border: none;
+  & a {
+    width: 45%;
+  }
+}
+.modal-body {
+  padding-bottom: 0;
+
+  & .dropdown {
+    & a {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      & div {
+        align-self: center;
+      }
+    }
+    & ul {
+      width: 100%;
+      padding-left: 1rem;
+    }
+  }
+}

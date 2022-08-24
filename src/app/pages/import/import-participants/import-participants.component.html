@@ -1,0 +1,56 @@
+<section class='row content'>
+  <div class='col-xl-6 col-sm-12'>
+    <h5>Atualize o banco de dados de participantes da campanha</h5>  
+    <form class='box'>
+      <div class='d-flex align-items-center p-3'>
+        <img src='assets/images/people-sheet.svg' />
+        <div class='pl-3'>
+          <h6><b>Planilha de Participantes</b></h6>
+          <small>Última atualização de "{{lastFilename}}" em {{lastDateFile}}</small>
+        </div>
+      </div>
+      <div class="input-group px-3">
+        <div class="custom-file" role='button'>
+          <input type="file" class="custom-file-input" id="formFile" (change)="changeListener($event)">
+          <label class="custom-file-label" for="formFile" data-browse='Adicionar'>{{fileName}}</label>
+        </div>
+      </div>
+      
+      <div class='d-flex align-items-center justify-content-center p-3 mt-3'>
+        <a 
+          type='button' 
+          class='btn btn-outline-secondary mr-3 w-100'
+          (click)="downloader()"  
+        >
+          Baixar Modelo
+        </a>
+        <a type='button' class='btn btn-primary w-100' (click)='sendFile()'>
+          Enviar Planilha
+        </a>
+      </div>
+    </form>
+  </div>
+  <div class='col-md-12 mt-5'>
+    <h6><b>Status das últimas importações</b></h6>
+    <div *ngIf="imports?.length;else empty">
+      <ul *ngFor='let import of imports.reverse()'>
+        <li 
+          class='card'
+          [ngClass]="{'card-success': import.id, 'card-error': import.error}"
+        >
+          <span>
+            <b>{{ import.id ? 'Processado com sucesso!' : 'Erro no processamento!' }}</b> 
+            Planilha "{{import.arquivo_nome}}" - {{import.criado_em}}
+          </span>
+        </li>
+      </ul>
+    </div>
+    <ng-template #empty>
+      <ul>
+        <li>
+          <div class='card'>Nenhuma importação completada ainda</div>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
+</section>

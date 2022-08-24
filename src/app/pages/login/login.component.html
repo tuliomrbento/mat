@@ -1,0 +1,59 @@
+<main class="row">
+  <section class="section-logo col-md-6 d-none d-md-flex justify-content-center align-items-center">
+    <img class='logo' [src]='logo' />
+  </section>
+  <section class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center">
+    <div class='container'>
+      <div>
+        <div><img class='icon' [src]='icon'/></div>
+        <br/>
+        <h6>Seja bem-vindo</h6>
+        <h1>Plataforma {{client}}</h1>
+        <br/>
+      </div>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Usuário</label>
+          <input 
+            type="text" 
+            formControlName="username" 
+            class="form-control" 
+            [ngClass]="{ 
+              'is-invalid': submitted && f.username.errors, 
+              'oauth-error': oAuthError
+            }" 
+            (keyup)='handleOAuthError()'
+          />
+          <div *ngIf="(submitted && f.username.errors)" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Usuário Obrigatório</div>
+          </div>
+          <div *ngIf='oAuthError' class='oauth-error--feedback'>
+            <span>Usuário inválido. Reveja o valor digitado.</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Senha</label>
+          <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Senha Obrigatória</div>
+            <div *ngIf="f.password.errors.minlength">Pelo menos 6 caracteres</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-secondary btn-lg">
+            Continuar 
+            <mat-icon [hidden]="loading">arrow_forward</mat-icon> 
+            <mat-spinner [hidden]='!loading' mode="indeterminate" [diameter]="20"></mat-spinner>
+          </button>
+        </div>
+      </form>
+      <div>
+        <br/>
+        <hr/>
+        <!-- <h5>Central de Atendimento</h5>
+        <p>0800 643 8320 contato@programalojaperfeita.com.br</p> -->
+        <p></p>
+      </div>
+    </div>
+  </section>
+</main>

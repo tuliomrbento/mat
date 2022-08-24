@@ -1,0 +1,20 @@
+{
+  "name": "Plataform PAT",
+  "short_name": "PAT",
+  "theme_color": "#101010",
+  "background_color": "#9a9a9a",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "description": "Plataform de Trade Marketing PAT",
+  "icons": [
+    {
+      "src": "assets/images/pat-logo.svg",
+      "sizes": "any"
+    },
+    {
+      "src": "assets/images/pat-logo-accent.svg",
+      "sizes": "any"
+    }
+  ]
+}

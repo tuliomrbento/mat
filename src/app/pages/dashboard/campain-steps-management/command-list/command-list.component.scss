@@ -1,0 +1,25 @@
+.modal-body{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+
+  & .card {
+    padding: 1rem;
+    width: 14rem;
+    & header {
+      padding-bottom: 1rem;
+      margin-bottom: .5rem;
+      border-bottom: 1px solid #00000020;
+    }
+    & ul li {
+      margin-bottom: .5rem;
+      display: flex;
+      justify-content: space-between;
+      & kbd {
+        background: #F0F0F9;
+        color: #666677;
+      }
+    }
+  }
+}

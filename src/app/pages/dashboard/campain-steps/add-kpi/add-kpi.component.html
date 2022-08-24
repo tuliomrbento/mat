@@ -1,0 +1,81 @@
+<div class="modal-header">
+  <h5 class="modal-title">Adicionar uma nova KPI</h5>
+  <a type="button" class="close" >
+    <span aria-hidden="true" (click)="activeModal.dismiss()">&times;</span>
+  </a>
+</div>
+<div class="modal-body">
+  <form #f='ngForm' (ngSubmit)='onSubmit(f)'>
+    <div class="form-group">
+      <label>Nome da KPI</label>
+      <input type="text" class="form-control" name='name' [(ngModel)]='name'>
+    </div>
+    <div class="form-group">
+      <label>Perfil Hierárquico</label>
+      <div class="dropdown form-control" dropdown>
+        <a dropdownToggle role="button">
+          {{profile || 'Selecione'}}
+          <div class='d-flex justify-content-end'>
+            <div class='icon chevron' [ngStyle]="{'-webkit-mask': 'url(assets/icons/chevronbottom.svg) no-repeat center'}"></div>
+          </div>
+        </a>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+          <li>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" value='cliente' name='profile' ngModel (ngModelChange)="profile = 'cliente'">
+              <label class="form-check-label">Cliente</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class='row form-group'>
+      <div class='col-md-6 col-sm-12'>
+        <label>Região</label>
+        <div class="dropdown form-control" dropdown>
+          <a dropdownToggle role="button">
+            {{region || 'Selecione'}}
+            <div class='d-flex justify-content-end'>
+              <div class='icon chevron' [ngStyle]="{'-webkit-mask': 'url(assets/icons/chevronbottom.svg) no-repeat center'}"></div>
+            </div>
+          </a>
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+            <li>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="sul" name='region' ngModel (ngModelChange)="region = 'sul'">
+                <label class="form-check-label">Sul</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class='col-md-6 col-sm-12'>
+        <label>Subregião</label>
+        <div class="dropdown form-control" dropdown>
+          <a dropdownToggle role="button">
+            {{sub_region || 'Selecione'}}
+            <div class='d-flex justify-content-end'>
+              <div class='icon chevron' [ngStyle]="{'-webkit-mask': 'url(assets/icons/chevronbottom.svg) no-repeat center'}"></div>
+            </div>
+          </a>
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+            <li>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="PR" name='sub_region' ngModel (ngModelChange)="sub_region = 'PR'" >
+                <label class="form-check-label">Pr</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" value="kpi" name='entry_key' [(ngModel)]='entry_key'>
+      <label class="form-check-label">Essa KPI é uma chave de entrada</label>
+    </div>
+  </form>
+</div>
+<div class="modal-footer d-flex justify-content-between">
+  <a class='btn btn-outline-secondary mr-3' (click)="activeModal.dismiss()">Cancelar</a>
+  <a (click)='onSubmit(f)' class='btn btn-primary' [ngClass]="{'disabled': !handleDisabled()}" >Adicionar KPI</a>
+</div>

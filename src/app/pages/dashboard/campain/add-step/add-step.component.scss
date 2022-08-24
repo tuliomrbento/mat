@@ -1,0 +1,29 @@
+.modal-footer {
+  border: none;
+  & a {
+    width: 45%;
+  }
+}
+
+::ng-deep mat-form-field {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+::ng-deep .mat-calendar-body-selected {
+  background-color: var(--secondary)!important;
+}
+
+::ng-deep .mat-form-field-underline, ::ng-deep .mat-form-field-ripple {
+  background-color: transparent!important;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper{
+  padding: 0;
+  padding-bottom: .2rem;
+} 
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+  padding-top: 0;
+}

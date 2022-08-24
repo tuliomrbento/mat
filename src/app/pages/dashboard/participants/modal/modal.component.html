@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h5 class="modal-title">Exportar Lista de Participantes</h5>
+  <a type="button" class="close" >
+    <span aria-hidden="true" (click)="activeModal.dismiss('Cross click')">&times;</span>
+  </a>
+</div>
+<div class="modal-body">
+  <p><b>Escolha o formato</b></p>
+  <div class='d-flex justify-content-around'>
+    <button class="btn btn-outline-secondary" [hidden]="true">.xls</button>
+    <button 
+      class="btn btn-outline-secondary" 
+      [ngClass]="{'focus': separator == ';'}"
+      (click)='separator = ";"; hasError = false' 
+    >.csv(;)</button>
+    <button 
+      class="btn btn-outline-secondary" 
+      [ngClass]="{'focus': separator == ','}"
+      (click)='separator = ","; hasError = false' 
+    >.csv(,)</button>
+  </div>
+</div>
+<div class="modal-footer">
+  <label [hidden]="!hasError">Selecione um separador*</label>
+  <a type="button" class="btn btn-primary" (click)="export()">
+    Exportar Lista
+    <div class='icon' [ngStyle]="{'-webkit-mask': 'url(assets/icons/export.svg) no-repeat center'}"></div>
+  </a>
+</div>

@@ -1,0 +1,32 @@
+.btn {
+  border-radius: 5px;
+}
+
+.modal-body .btn{
+  transition: .5s;
+  &:focus, &:active {
+    transition: .5s;
+    background-color: #ddd;
+  }
+}
+
+.modal-footer{
+  border: none;
+
+  & label{
+    color: red;
+    margin-right: auto;
+    font-size: 12px;
+  }
+
+  & .btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+    & .icon {
+      margin-left: .5rem;
+      align-self: flex-end;
+    }
+  }
+}

@@ -1,0 +1,116 @@
+html, body, main, section { height: 100%; }
+html {overflow-x: hidden;}
+body { 
+  padding           : 0;
+  margin            : 0;
+  box-sizing        : border-box; 
+  font-family       : "Sarabun", sans-serif;
+  font-size: 15px!important;
+  font-weight: 400!important;
+  color: var(--gray-dark);
+  background-color: var(--light);
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+:root {
+  --primary: #ffff63;
+  --secondary: #212529;
+  --secondary-light: #9a9a9a;
+  --background-dark: linear-gradient(rgb(33, 33, 33), rgb(59, 59, 59));
+  --green: #2AC644;
+  --indigo: #4C6EF5;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+
+  &-track {
+    background: #ddd 
+  }
+  &-thumb {
+    background: var(--gray) 
+  }
+  &-thumb:hover {
+    background: #ccc 
+  }
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: white;
+  transition: 1s;
+
+  &:hover, &:focus, &:active {
+    background: linear-gradient(.31deg, #101010 0%, #444 100%);
+    background-color: #222
+  }
+}
+
+.btn-outline-secondary {
+  border-radius: 3rem;
+  padding: .375rem 1.5rem;
+  font-weight: 600;
+  border-width: 1.3px;
+
+  & .icon {
+    background-color: var(--gray);
+  }
+}
+
+.btn-primary {
+  background-color: var(--gray)!important;
+  color: white;
+  border-radius: 3rem;
+  padding: .375rem 1.5rem;
+  font-weight: 600;
+  border: 1.2px solid var(--gray)!important;
+
+  &:hover, &:focus, &:active {
+    background: linear-gradient(.31deg, var(--gray) 0%, var(--gray-dark) 100%);
+    background-color: var(--gray-dark);
+    border-color: var(--gray);
+  }
+
+  & .icon {
+    background-color: white;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  background-color: #9999AA;
+}
+
+.chevron {
+  -webkit-mask-size: 70%!important;
+  cursor: pointer
+}
+
+.modal.show .modal-dialog {
+  transform: none!important;
+}
+
+ul {
+  list-style: none;
+}
+.cdk-overlay-container {
+  z-index: 2000;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+   -webkit-transition-delay: 9999s!important;
+   transition-delay: 9999s!important;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: var(--secondary)!important;
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.2)!important;  
+  }
+}

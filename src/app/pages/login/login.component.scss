@@ -1,0 +1,55 @@
+main {
+  margin: 0;
+
+  & .section-logo {
+    background: var(--primary);
+
+    & .logo {
+      width: 20rem;
+      height: 20rem;
+      // filter: drop-shadow(4px 3px 3rem var(--secondary));
+    }
+  }
+
+  & .container {
+    padding: 0 7rem;
+    margin-top: 10px;
+
+    & .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    & mat-icon {
+      padding-left: .5rem;
+      font-size: 100%;
+      display: flex;
+      align-items: flex-end;
+    }
+    & .icon {
+      width: 4rem;
+      height: 4rem;
+      background-color: transparent;
+    }
+    & mat-spinner {
+      margin-left: .5rem;
+    }
+
+    & ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+      stroke: #fff;
+    }
+
+    form .oauth-error{
+      color: #F03E5E;
+      &--feedback{
+        font-size: 14px;
+        color: #F03E5E;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 994px) {
+  main .container {padding: 0 2rem;}
+}

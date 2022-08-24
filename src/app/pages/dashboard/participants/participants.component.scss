@@ -1,0 +1,125 @@
+section {height: inherit!important;}
+main {height: inherit!important;}
+table {margin: 0;}
+.content {
+  min-height: 70%;
+  & header {
+    padding: 1rem 1rem 2rem;
+    border-bottom: 1px solid #F0F0F9;
+
+    & h1 {
+      color: #2AC644;
+      font-weight: 400
+    }
+
+    & h5 {
+      font-weight: 400;
+    }
+    
+    & .info, & .list span {
+      opacity: .6;
+      white-space: nowrap;
+    }
+
+    & mat-icon {
+      font-size: 8px;
+      width: 15px;
+      height: 20px;
+      align-self: flex-end;
+    }
+
+    & .buttons {
+      & a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        white-space: nowrap;
+        transition: .5s;
+  
+        & .icon {
+          width: 15px;
+          transition: .5s;
+          margin-left: 6px;
+        }
+  
+        &:hover .icon {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+
+  & .table {
+    color: var(--gray);
+    & th {
+      color: #a8adb2;
+      white-space: nowrap;
+      border-color: #eee;
+      border-width: 1px;
+    }
+    & td {
+      white-space: nowrap;
+      border-color: #eee;
+    }
+    & mat-icon {
+      font-size: 8px;
+    }
+    & .fixer {
+      left: 0;
+      position: sticky;
+      background-color: white;
+      &-name {
+        left: 75px;
+        position: sticky;
+        background-color: white;
+      }
+      &-email {
+        position: sticky;
+        background-color: white;
+        left: 153px;
+        border-right: 1px solid #eee;
+      }
+    }
+  }
+
+  & footer {
+    width: 100%;
+    bottom: 0;
+    padding: 1rem 1rem 2.5rem;
+    opacity: .6;
+
+    & .pagination {
+
+      & .active {
+        background: #ccc;
+        border-radius: 8px;
+        padding: 0 0.45rem!important;
+        margin: 0 0.3rem;
+        color: var(--secondary);
+      }
+      
+      & mat-icon {
+        font-size: 15px;
+        width: 15px;
+        height: 18px;
+        align-self: flex-end;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width:400px) {
+  .content header {
+    & .buttons {
+      justify-content: space-between!important;
+      margin-bottom: 0;
+    }
+    & div {
+      margin-bottom: .5rem;
+    }
+  }
+  .content .table .fixer {position: static;}
+  .content footer {position: relative;}
+  .content .pagination {height: 100%;}
+}

@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h5 class="modal-title">Menu</h5>
+  <a type="button" class="close" >
+    <span aria-hidden="true" (click)="activeModal.dismiss('Cross click')">&times;</span>
+  </a>
+</div>
+<div class="modal-body">
+  <ul>
+    <li class='first-list' *ngFor="let item of items">
+      <div *ngIf="!item.sub.length; else sublist">
+        <a role='button' routerLink="{{item.path}}" (click)='activeModal.dismiss()'>{{ item.title }}</a>
+      </div>
+      <ng-template #sublist>
+        {{ item.title }}
+        <ul class='second-list'>
+          <li *ngFor='let i of item.sub'>
+            <a routerLink="{{i.path}}" (click)='activeModal.dismiss()'>- {{ i.title }}</a>
+          </li>
+        </ul>
+      </ng-template>
+    </li>
+    <li>
+      <a role='button' href='#' (click)='logout()'>SAIR</a>
+    </li>
+  </ul>
+</div>

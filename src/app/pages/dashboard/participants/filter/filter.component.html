@@ -1,0 +1,153 @@
+
+<div class="modal-header">
+  <h5 class="modal-title">Filtrar Lista</h5>
+  <a type="button" class="close" >
+    <span aria-hidden="true" (click)="activeModal.dismiss()">&times;</span>
+  </a>
+</div>
+<div class="modal-body">
+  <form #f='ngForm' (ngSubmit)='onSubmit(f)'>
+    <label>Status</label>
+    <div class='form-group'>
+      <div class="form-check form-check-inline">
+        <input 
+          role='button'
+          class="form-check-input" 
+          type="checkbox" 
+          value="Confirmado" 
+          name='confirmed' 
+          [(ngModel)]='valuesFilters.statusConfirmed' 
+          (ngModelChange)="valuesFilters.statusConfirmed = 1"
+        >
+        <label class="form-check-label">Confirmado</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input 
+          role='button'
+          class="form-check-input" 
+          type="checkbox" 
+          value="A Confirmar"
+          name='toConfirm'
+          [(ngModel)]='valuesFilters.statusToConfirm'
+          (ngModelChange)="valuesFilters.statusToConfirm = 2"
+        >
+        <label class="form-check-label">A Confirmar</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input 
+          role='button'
+          class="form-check-input" 
+          type="checkbox" 
+          value="Inativo"
+          name='inactive'
+          [(ngModel)]='valuesFilters.statusInactive'
+          (ngModelChange)="valuesFilters.statusInactive = 3"
+        >
+        <label class="form-check-label">Inativo</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input 
+          role='button'
+          class="form-check-input" 
+          type="checkbox" 
+          value="Pendente"
+          name='pending'
+          [(ngModel)]='valuesFilters.statusPending'
+          (ngModelChange)="valuesFilters.statusPending = 4"
+        >
+        <label class="form-check-label">Pendente</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Nome do Participante</label>
+      <input autocomplete="disabled" type="text" class="form-control" name='name' [(ngModel)]='valuesFilters.name' >
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label>E-mail</label>
+          <input autocomplete="disabled" type="email" class="form-control" name='email' [(ngModel)]='valuesFilters.email' >
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>Telefone</label>
+          <input autocomplete="disabled" type="text" class="form-control" mask='(00) 00000-0000' name='phone' [(ngModel)]='valuesFilters.phone' >
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>CPF</label>
+          <input autocomplete="disabled" type="text" class="form-control" mask='000.000.000-00' name='cpf' [(ngModel)]='valuesFilters.cpf' >
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>CNPJ</label>
+          <input autocomplete="disabled" type="text" class="form-control" mask='00.000.000/0000-00' name='cnpj' [(ngModel)]='valuesFilters.cnpj' >
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>Região</label>
+          <select class='form-select form-control' name='region' [(ngModel)]='valuesFilters.region' >
+            <option>Qualquer</option>
+            <option *ngFor="let region of regions">{{region}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>Sub Região</label>
+          <select class='form-select form-control' name='subregion' [(ngModel)]='valuesFilters.subregion' >
+            <option>Qualquer</option>
+            <option *ngFor="let subregion of subRegions">{{subregion}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>Segmento</label>
+          <select class='form-select form-control' name='segment' [(ngModel)]='valuesFilters.segment' >
+            <option>Qualquer</option>
+            <option *ngFor='let segment of segments'>{{segment}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>Atendido Por</label>
+          <select class='form-select form-control' name='attendedBy' [(ngModel)]='valuesFilters.attendedBy' >
+            <option>Qualquer</option>
+            <option *ngFor="let attendant of attendants">{{attendant}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label>Perfil Acesso</label>
+          <select class='form-select form-control' name='profile' [(ngModel)]='valuesFilters.profile' >
+            <option>Qualquer</option>
+            <option *ngFor="let profile of profiles">{{profile.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-6"></div>
+    </div>
+    <footer>
+      <div class='float-right'>
+        <a 
+          type='button' 
+          class='btn btn-outline-secondary mr-3' 
+          [hidden]='!hasFilter'
+          (click)='clear()'
+        >
+          Limpar Filtros
+        </a>
+        <button type='submit' class='btn btn-primary'>
+          Aplicar
+        </button>
+      </div>
+    </footer>
+  </form>
+</div>

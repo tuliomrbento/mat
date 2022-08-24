@@ -1,0 +1,258 @@
+<header>
+  <div class='row header'>
+    <div class='mr-md-5 mr-sm-3 pl-2'>
+      <small>Nome da KPI</small>
+      <h5>{{metric?.name}}</h5>
+    </div>
+    <div class='mr-md-5 mr-sm-3'>
+      <small>Perfil Hierárquico</small>
+      <h6>{{metric?.profile}}</h6>
+    </div>
+    <div class='mr-md-5 mr-sm-3'>
+      <small>Região</small>
+      <h6>{{metric?.region}}</h6>
+    </div>
+    <div class='mr-md-5 mr-sm-3'>
+      <small>Subregião</small>
+      <h6>{{metric?.sub_region}}</h6>
+    </div>
+    <div class='mr-md-5 mr-sm-3 d-flex align-self-end'>
+      <h6 [hidden]='!metric?.entry_key' ><mat-icon class="material-icons-outlined">check_circle</mat-icon>Chave de entrada</h6>
+    </div>
+    <div class='pr-2 ml-auto'>
+      <div class='float-right'>
+        <div class='button' [hidden]="true">
+          <mat-icon class='material-icons-outlined'>edit</mat-icon>
+        </div>
+        <div class='button' (click)='toBack()'>
+          <mat-icon class='material-icons-outlined'>arrow_back</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class='content'>
+  <div class='main'>
+    <div class='row'>
+      <div class='col-md-4 col-sm-12' id='input'>
+        <div class='header'><b>Variáveis Personalizadas</b></div>
+        <div class='body'>
+          <div class='variables d-flex flex-wrap'>
+            <div *ngFor='let variable of allVariables'>
+              <div class='item'>
+                <div class='dropdown' dropdown>
+                  <img src={{variableType[variable.type]}} dropdownToggle role='button' />
+                  <ul *dropdownMenu class="dropdown-menu">
+                    <li (click)='variable.type="number";changeTypeVariable(variable)'><div role='button' class='mb-2'><img src='assets/icons/number.svg'/>Número</div></li>
+                    <li (click)='variable.type="boolean";changeTypeVariable(variable)'><div role='button' class='mb-2'><img src='assets/icons/boolean.svg'/>Verdadeiro ou False</div></li>
+                    <li (click)='variable.type="currency";changeTypeVariable(variable)'><div role='button' class='mb-2'><img src='assets/icons/currency.svg'/>Dinheiro</div></li>
+                    <li (click)='variable.type="string";changeTypeVariable(variable)'><div role='button'><img src='assets/icons/questionmarkfilled.svg'/>Texto</div></li>
+                  </ul>
+                </div>
+                {{variable.name}}
+                <a type='button' class="d-flex" (click)='deleteVariable(variable)'>
+                  <img src='assets/icons/x.svg'/>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="Adicionar nova Métrica" 
+              aria-label="Adicionar nova Métrica" 
+              aria-describedby="basic-addon2"
+              name='iptVariable'
+              [(ngModel)]='iptVariable'
+              (keyup.enter)="handleIptVariable()"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-secondary" type="button" (click)="handleIptVariable()"><mat-icon>check</mat-icon></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='col-md-8 col-sm-12 metrics'>
+        <div class='header d-flex justify-content-between'>
+          <b>Cálculos e Premiações</b>
+          <a role='button' (click)='openModal()'>Lista de comados</a>
+        </div>
+        <div class='body'>
+          <div *ngIf='allVariables?.length;else empty'>
+
+            <form class='fields' #f='ngForm' (ngSubmit)='onSubmit()'>
+              <div class='label'>
+                <div class='circle'>
+                  <mat-icon class='circle-rules material-icons-outlined'>circle</mat-icon>
+                  <div class='bar'></div>
+                </div>
+                <b>Se</b>
+              </div>
+              <div class="card">
+                <div [hidden]="!ipts[0].length">
+                  <div class="ipt ipt-active">
+                    <mat-chip-list #firstList aria-label="Adicionar nova regra">
+                      <mat-chip class='chip chip-rules' *ngFor="let variable of calcVariables[0]" (removed)="remove(variable,0)" matChipRemove>
+                        <div class='icon' *ngIf="variable.type"><img src={{variableType[variable.type]}} /></div>
+                        {{variable?.name}}
+                      </mat-chip>
+                      <input
+                        [formControl]='variablesCtrl'
+                        [matAutocomplete]='firstAuto'
+                        [matChipInputFor]='firstList'
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event, 0)"
+                        (ngModelChange)="hasChanges = true"
+                        >
+                    </mat-chip-list>
+                    <mat-autocomplete #firstAuto="matAutocomplete" (optionSelected)="selected($event, 0)">
+                      <mat-option *ngFor="let variable of filteredVariables | async" [value]="variable">
+                        {{variable?.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <ng-container *ngIf="ipts[0].length > 1">
+                    <div class="btn-group" role="group">
+                      <button 
+                        type="button" 
+                        class='left' 
+                        [ngClass]="{'active': calcVariables[1] == '&&'}"  
+                        (click)='selected({option: {value: "&&"}}, 1)'
+                      >E</button>
+                      <button 
+                        type="button" 
+                        class='right'
+                        [ngClass]="{'active': calcVariables[1] == '||'}"
+                        (click)='selected({option: {value: "||"}}, 1)'
+                      >OU</button>
+                    </div>
+                    <div class="ipt ipt-active">
+                      <mat-chip-list #secondList aria-label="Adicionar nova regra">
+                        <mat-chip class='chip chip-rules' *ngFor="let variable of calcVariables[2]" (removed)="remove(variable,2)" matChipRemove>
+                          <div class='icon' *ngIf="variable.type"><img src={{variableType[variable.type]}} /></div>
+                          {{variable?.name}}
+                        </mat-chip>
+                        <input
+                          [formControl]='variablesCtrl'
+                          [matAutocomplete]='secondAuto'
+                          [matChipInputFor]='secondList'
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          (matChipInputTokenEnd)="add($event, 2)"
+                          (ngModelChange)="hasChanges = true"
+                          (keydown.backspace)="handlePopIpts('calculation')"
+                          >
+                      </mat-chip-list>
+                      <mat-autocomplete #secondAuto="matAutocomplete" (optionSelected)="selected($event, 2)">
+                        <mat-option *ngFor="let variable of filteredVariables | async" [value]="variable">
+                          {{variable?.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </div>
+                  </ng-container>
+                </div>
+                <div 
+                  role='button'
+                  class='d-flex justify-content-start ipt ipt-rules' 
+                  (click)='ipts[0].push(1)'
+                  *ngIf='ipts[0].length < 2;else noneAddRule'
+                  >
+                  Adicionar nova regra...
+                </div>
+                <ng-template #noneAddRule></ng-template>
+              </div>
+
+              <div class='label'>
+                <div class='circle'>
+                  <mat-icon class='circle-awards material-icons-outlined'>circle</mat-icon>
+                  <div class='bar'></div>
+                </div>
+                <b>A premiação será de</b>
+              </div>
+              <div class="card mb-0">
+                <div class='award'>
+                  Liberação das demais KPIs
+                </div>
+                <div [hidden]="!ipts[1]?.length">
+                  <div class='operator'>E</div>
+                  <div class="input-group mb-3" [ngClass]="{'input-group--active': onFocus}">
+                    <div class="input-group-prepend">
+                      <div class="dropdown" dropdown >
+                        <a dropdownToggle role="button" (click)='onSelectAwardTypes = !onSelectAwardTypes'>
+                          <span>{{onSelectAwardTypes === false ? valueSelectAward : 'Selecione'}}</span>
+                          <mat-icon class='ml-1'>{{onSelectAwardTypes ? 'expand_less':'expand_more'}}</mat-icon>
+                        </a>
+                        <ul *dropdownMenu class="dropdown-menu" (click)='onSelectAwardTypes = !onSelectAwardTypes'>
+                          <li 
+                            role='button' 
+                            (click)='valueSelectAward = "Cálculo";selected({option: {value: valueSelectAward}}, 4)'
+                          >Cálculo</li>
+                          <li 
+                            role='button' 
+                            (click)='valueSelectAward = "Ranking";selected({option: {value: valueSelectAward}}, 4)'
+                          >Ranking</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div *ngIf="valueSelectAward === 'Ranking';else calculate" class='condition'>
+                      <a type='button'><b>Editar Regras de Ranqueamento Personalizadas</b></a>
+                    </div>
+                    <ng-template #calculate>
+                      <mat-chip-list #thirdist aria-label="Adicionar nova regra" [ngClass]="{'active': onFocus}">
+                        <mat-chip class='chip chip-awards' *ngFor="let variable of calcVariables[5]" (removed)="remove(variable,5)" matChipRemove>
+                          <div class='icon' *ngIf="variable.type"><img src={{variableType[variable.type]}} /></div>
+                          {{variable?.name}}
+                        </mat-chip>
+                        <input
+                          [formControl]='variablesCtrl'
+                          [matAutocomplete]='secondAuto'
+                          [matChipInputFor]='thirdist'
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          (matChipInputTokenEnd)="add($event, 2)"
+                          (focus)='onFocus = true'
+                          (blur)='onFocus = false'
+                          (ngModelChange)="hasChanges = true"
+                          (keydown.backspace)="handlePopIpts('awards')"
+                          >
+                      </mat-chip-list>
+                      <mat-autocomplete #secondAuto="matAutocomplete" (optionSelected)="selected($event, 5)">
+                        <mat-option *ngFor="let variable of filteredVariables | async" [value]="variable">
+                          {{variable.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </ng-template>
+                  </div>
+                </div>
+                
+                <div 
+                  role='button'
+                  class='d-flex justify-content-start ipt ipt-awards' 
+                  (click)='ipts[1].push(1)'
+                  *ngIf='ipts[1].length < 1;else noneAddAward'
+                  >
+                  Adicionar nova premiação...
+                </div>
+                <ng-template #noneAddAward></ng-template>
+              </div>
+            </form>
+          </div>
+
+          <ng-template #empty>
+            <div class='empty d-flex flex-column align-items-center justify-content-center'>
+              <img src='assets/images/variable-add.svg' />
+              <h5><b>Nenhuma métrica adicionada</b></h5>
+              <p>Adicione uma métrica ao lado para continuar</p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class='col-12'>
+      <div class='float-right pb-2 footer-buttons' [hidden]="!hasChanges">
+        <a type='button' (click)='ngOnInit()'>Descartar</a>
+        <a class='btn btn-primary ml-3' (click)='onSubmit()'>Salvar</a>
+      </div>
+    </div>
+  </div>
+</div>
